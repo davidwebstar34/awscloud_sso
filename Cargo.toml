@@ -1,0 +1,16 @@
+[package]
+name = "awscloud_sso"
+version = "1.0.0"
+edition = "2021"
+authors = ["David Webster <dwebster182@gmail.com>"]
+description = "A cli binary for getting credentials from AWS SSO."
+license = "Apache-2.0"
+repository = "https://github.com/davidwebstar34/awscloud_sso"
+homepage = "https://github.com/davidwebstar34/awscloud_sso"
+documentation = "https://docs.rs/awscloud_sso"
+keywords = ["aws", "sso", "rust"]
+categories = ["cloud-computing", "access-management"]
+
+[dependencies]
+awscloud_sso_cred_helper = "1.0.0"
+tokio = { version = "1", features = ["full"] }
