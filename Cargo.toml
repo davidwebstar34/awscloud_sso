@@ -12,5 +12,5 @@ keywords = ["aws", "sso", "rust"]
 categories = ["cloud-computing", "access-management"]
 
 [dependencies]
-awscloud_sso_cred_helper = "1.0.0"
+awscloud_sso_cred_helper = "1.1.0"
 tokio = { version = "1", features = ["full"] }
