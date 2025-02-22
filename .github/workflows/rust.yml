@@ -200,10 +200,11 @@ jobs:
         with:
           command: build
           args: "--release"
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-${{ matrix.target }}
           path: ./target/release/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}${{ matrix.suffix }}
+          compression-level: 0
   release:
     if: github.ref == 'refs/heads/main'
     needs:
