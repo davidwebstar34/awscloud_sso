@@ -241,14 +241,14 @@ jobs:
           artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
           rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
           wait_seconds: 30
-      - name: Download artifact from build
-        uses: bettermarks/action-artifact-download@0.5.1
-        with:
-          repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc
-          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
-          wait_seconds: 30          
+      # - name: Download artifact from build
+      #   uses: bettermarks/action-artifact-download@0.5.1
+      #   with:
+      #     repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc
+      #     rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
+      #     wait_seconds: 30          
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -295,11 +295,11 @@ jobs:
           asset_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
           asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
           asset_content_type: application/octet-stream
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        with:
-          upload_url: '${{ steps.create_release.outputs.upload_url }}'
-          asset_name:  ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
-          asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
-          asset_content_type: application/octet-stream
+      # - uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      #   with:
+      #     upload_url: '${{ steps.create_release.outputs.upload_url }}'
+      #     asset_name:  ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
+      #     asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
+      #     asset_content_type: application/octet-stream
