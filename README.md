@@ -1,88 +1,83 @@
-awscloud_sso
+# awscloud_sso
 
-awscloud_sso is a command-line tool that provides seamless authentication for AWS accounts using AWS SSO. It builds on top of the awscloud_sso_credential_helper library and simplifies retrieving and managing AWS credentials for multiple accounts and roles.
+`awscloud_sso` is a command-line tool that provides seamless authentication for AWS accounts using AWS SSO. It builds on top of the `awscloud_sso_credential_helper` library and simplifies retrieving and managing AWS credentials for multiple accounts and roles without the need to copy paste credentials.
 
-Features
+## Features
 
-Interactive selection of AWS SSO accounts and roles
+- Interactive selection of AWS SSO accounts and roles
+- Automatic fetching and storing of temporary credentials
+- Integration with AWS CLI and SDKs
+- Multi-platform support (Linux, macOS, Windows)
 
-Automatic fetching and storing of temporary credentials
+## Installation
 
-Integration with AWS CLI and SDKs
+You can install `awscloud_sso` using `cargo`:
 
-Multi-platform support: Linux, macOS, Windows(Not supported)
-
-Installation
-
-You can install awscloud_sso using cargo:
-
+```sh
 cargo install awscloud_sso
+```
 
-Alternatively, download the latest release from GitHub Releases.
+Alternatively, download the latest release from [GitHub Releases](https://github.com/YOUR_GITHUB_ORG/awscloud_sso/releases).
 
-Usage
+## Usage
 
 Once installed, run the following command to start the interactive AWS SSO workflow:
 
+```sh
 awscloud_sso
+```
 
-Example Commands
+### Example Commands
 
-Authenticate and Select a Role
+- **Authenticate and Select a Role**
+  ```sh
+  awscloud_sso
+  ```
+  This command will prompt you to log in and select an AWS account and role.
 
-awscloud_sso
+- **Specify a Start URL and Region**
+  ```sh
+  awscloud_sso --start-url https://your.awsapps.com/start --region us-west-2
+  ```
+  This allows you to bypass the interactive prompt by providing the SSO start URL and AWS region.
 
-This command will prompt you to log in and select an AWS account and role.
+- **Display Help**
+  ```sh
+  awscloud_sso --help
+  ```
+  Shows available command-line options.
 
-Specify a Start URL and Region
+## How It Works
 
-awscloud_sso --start-url https://your.awsapps.com/start --region us-west-2
+1. The tool initiates an AWS SSO authentication flow.
+2. The user logs in via a browser to authorize the CLI session.
+3. Available AWS accounts and roles are retrieved.
+4. The user selects an account and role.
+5. Temporary AWS credentials are fetched and stored in `~/.aws/credentials`.
+6. The credentials can be used with AWS CLI or SDKs.
 
-This allows you to bypass the interactive prompt by providing the SSO start URL and AWS region.
-
-Display Help
-
-awscloud_sso --help
-
-Shows available command-line options.
-
-How It Works
-
-The tool initiates an AWS SSO authentication flow.
-
-The user logs in via a browser to authorize the CLI session.
-
-Available AWS accounts and roles are retrieved.
-
-The user selects an account and role.
-
-Temporary AWS credentials are fetched and stored in ~/.aws/credentials.
-
-The credentials can be used with AWS CLI or SDKs.
-
-Configuration
+## Configuration
 
 The tool reads existing AWS configurations and supports additional environment variables:
 
+```sh
 export AWS_SSO_START_URL="https://your.awsapps.com/start"
 export AWS_REGION="us-west-2"
+```
 
-Integration with AWS CLI
+## Integration with AWS CLI
 
-After authenticating with awscloud_sso, you can run AWS CLI commands seamlessly:
+After authenticating with `awscloud_sso`, you can run AWS CLI commands seamlessly:
 
+```sh
 aws s3 ls
+```
 
-Troubleshooting
+## Troubleshooting
 
-Expired credentials: Run awscloud_sso again to refresh credentials.
+- **Expired credentials**: Run `awscloud_sso` again to refresh credentials.
+- **Browser login issues**: Manually visit the login URL printed in the terminal.
 
-Missing dependencies: Ensure Rust is installed (rustc --version).
+---
 
-Browser login issues: Manually visit the login URL printed in the terminal.
-
-License
-
-awscloud_sso is licensed under the MIT
-
-🚀 Start using awscloud_sso today to simplify and secure AWS authentication!
+🚀 **Start using `awscloud_sso` today to simplify AWS authentication!**
