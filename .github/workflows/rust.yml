@@ -231,7 +231,7 @@ jobs:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
-          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
+          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-linux
           wait_seconds: 30
       - name: Download artifact from build
         uses: bettermarks/action-artifact-download@0.5.1
@@ -239,7 +239,7 @@ jobs:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
-          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
+          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-macos
           wait_seconds: 30
       # - name: Download artifact from build
       #   uses: bettermarks/action-artifact-download@0.5.1
@@ -279,28 +279,18 @@ jobs:
           release_name: "Release ${{ steps.get_version.outputs.VERSION }}"
           draft: false
           prerelease: false
-      - name: Debug1 - Check If Binary Exists
-        run: ls -lah ./target/
-      - name: Debug2 - Check If Binary Exists
-        run: ls -lah ./target/${{ matrix.target }}
-      - name: Debug3 - Check If Binary Exists
-        run: ls -lah ./target/${{ matrix.target }}/release/
-      - uses: actions/upload-release-asset@v1.0.1
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./artifacts/awscloud_sso-linux
+            ./artifacts/awscloud_sso-macos
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          name: "Release ${{ steps.get_version.outputs.VERSION }}"
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
-          asset_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
-          asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
-          asset_content_type: application/octet-stream
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
-          asset_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
-          asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
-          asset_content_type: application/octet-stream
       # - uses: actions/upload-release-asset@v1.0.1
       #   env:
       #     GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
