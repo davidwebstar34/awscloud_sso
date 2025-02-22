@@ -1,5 +1,5 @@
-use clap::Parser;
 use awscloud_sso_cred_helper::AwsSsoWorkflow;
+use clap::Parser;
 use std::error::Error;
 
 #[derive(Parser, Debug)]
@@ -22,6 +22,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
     };
 
     let _ = workflow.run_workflow().await?;
-    
+
     Ok(())
 }
