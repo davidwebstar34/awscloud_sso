@@ -226,7 +226,7 @@ jobs:
           echo ::set-output name=VERSION::$(cat version)
         shell: bash
       - name: Download artifact from build
-        uses: bettermarks/action-artifact-download@0.3.0
+        uses: bettermarks/action-artifact-download@0.5.1
         with:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -234,7 +234,7 @@ jobs:
           rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu  
           wait_seconds: 30
       - name: Download artifact from build
-        uses: bettermarks/action-artifact-download@0.3.0
+        uses: bettermarks/action-artifact-download@0.5.1
         with:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -242,7 +242,7 @@ jobs:
           rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
           wait_seconds: 30
       - name: Download artifact from build
-        uses: bettermarks/action-artifact-download@0.3.0
+        uses: bettermarks/action-artifact-download@0.5.1
         with:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
