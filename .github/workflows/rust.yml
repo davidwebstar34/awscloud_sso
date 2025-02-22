@@ -283,8 +283,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ./artifacts/awscloud_sso-linux
-            ./artifacts/awscloud_sso-macos
+            ./awscloud_sso-linux
+            ./awscloud_sso-macos
           tag_name: ${{ steps.get_version.outputs.VERSION }}
           name: "Release ${{ steps.get_version.outputs.VERSION }}"
           draft: false
