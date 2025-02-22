@@ -1,23 +1,24 @@
-# awscloud_sso
-
-`awscloud_sso` is a command-line tool that provides seamless authentication for AWS accounts using AWS SSO. It builds on top of the `awscloud_sso_credential_helper` library and simplifies retrieving and managing AWS credentials for multiple accounts and roles without the need to copy paste credentials.
-
-## Features
-
-- Interactive selection of AWS SSO accounts and roles
-- Automatic fetching and storing of temporary credentials
-- Integration with AWS CLI and SDKs
-- Multi-platform support (Linux, macOS, Windows)
+# AWS Cloud SSO Credential Helper
 
 ## Installation
 
-You can install `awscloud_sso` using `cargo`:
+### Using `curl` (Recommended)
+
+To install the latest binary release from GitHub:
 
 ```sh
-cargo install awscloud_sso
+curl -L -o awscloud_sso https://github.com/davidwebstar34/awscloud_sso/releases/latest/download/awscloud_sso-x86_64-apple-darwin
+chmod +x awscloud_sso
+sudo mv awscloud_sso /usr/local/bin/
 ```
 
-Alternatively, download the latest release from [GitHub Releases](https://github.com/YOUR_GITHUB_ORG/awscloud_sso/releases).
+### macOS: Allow Running the Binary
+
+On macOS, you may need to explicitly allow the binary:
+
+```sh
+xattr -d com.apple.quarantine /usr/local/bin/awscloud_sso
+```
 
 ## Usage
 
@@ -30,15 +31,19 @@ awscloud_sso
 ### Example Commands
 
 - **Authenticate and Select a Role**
+
   ```sh
   awscloud_sso
   ```
+
   This command will prompt you to log in and select an AWS account and role.
 
 - **Specify a Start URL and Region**
+
   ```sh
   awscloud_sso --start-url https://your.awsapps.com/start --region us-west-2
   ```
+
   This allows you to bypass the interactive prompt by providing the SSO start URL and AWS region.
 
 - **Display Help**
@@ -56,15 +61,6 @@ awscloud_sso
 5. Temporary AWS credentials are fetched and stored in `~/.aws/credentials`.
 6. The credentials can be used with AWS CLI or SDKs.
 
-## Configuration
-
-The tool reads existing AWS configurations and supports additional environment variables:
-
-```sh
-export AWS_SSO_START_URL="https://your.awsapps.com/start"
-export AWS_REGION="us-west-2"
-```
-
 ## Integration with AWS CLI
 
 After authenticating with `awscloud_sso`, you can run AWS CLI commands seamlessly:
@@ -77,6 +73,10 @@ aws s3 ls
 
 - **Expired credentials**: Run `awscloud_sso` again to refresh credentials.
 - **Browser login issues**: Manually visit the login URL printed in the terminal.
+- **macOS Security Warning**: If you get a warning when running the binary, allow it using:
+  ```sh
+  xattr -d com.apple.quarantine /usr/local/bin/awscloud_sso
+  ```
 
 ---
 

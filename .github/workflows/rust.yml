@@ -1,7 +1,7 @@
-'on':
+"on":
   push:
     branches:
-      - '*'
+      - "*"
   pull_request: null
 jobs:
   check:
@@ -11,11 +11,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/git
-          key: '${{ runner.os }}-cargo-index-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: target
@@ -29,7 +29,7 @@ jobs:
         with:
           command: check
   test:
-    runs-on: '${{ matrix.os }}'
+    runs-on: "${{ matrix.os }}"
     strategy:
       matrix:
         include:
@@ -41,11 +41,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/git
-          key: '${{ runner.os }}-cargo-index-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: target
@@ -65,11 +65,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/git
-          key: '${{ runner.os }}-cargo-index-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: target
@@ -79,15 +79,15 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-          components: 'rustfmt, clippy'
+          components: "rustfmt, clippy"
       - uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: '--all -- --check'
+          args: "--all -- --check"
       - uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: '-- -D warnings'
+          args: "-- -D warnings"
   version:
     runs-on: ubuntu-latest
     steps:
@@ -105,11 +105,11 @@ jobs:
         run: |
           echo $PREVIOUS_VERSION
         env:
-          PREVIOUS_VERSION: '${{ steps.get_previous_version.outputs.PREVIOUS_VERSION }}'
+          PREVIOUS_VERSION: "${{ steps.get_previous_version.outputs.PREVIOUS_VERSION }}"
       - id: semvers
         uses: WyriHaximus/github-action-next-semvers@master
         with:
-          version: '${{ steps.get_previous_version.outputs.PREVIOUS_VERSION }}'
+          version: "${{ steps.get_previous_version.outputs.PREVIOUS_VERSION }}"
       - run: mkdir -p ./version
       - if: "!contains(github.event.head_commit.message, 'BC BREAK') && !contains(github.event.head_commit.message, 'Signed-off-by: dependabot-preview[bot] <support@dependabot.com>')"
         run: |
@@ -135,16 +135,16 @@ jobs:
       - lints
       - test
       - check
-    runs-on: '${{ matrix.os }}'
+    runs-on: "${{ matrix.os }}"
     strategy:
       matrix:
         include:
           - os: macos-latest
             target: x86_64-apple-darwin
-            suffix: ''
+            suffix: ""
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            suffix: ''
+            suffix: ""
           # - os: windows-latest
           #   target: x86_64-pc-windows-msvc
           #   suffix: .exe
@@ -165,11 +165,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/registry
-          key: '${{ runner.os }}-cargo-registry-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: ~/.cargo/git
-          key: '${{ runner.os }}-cargo-index-${{ hashFiles(''**/Cargo.lock'') }}'
+          key: "${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}"
       - uses: actions/cache@v3
         with:
           path: target
@@ -182,10 +182,10 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: install
-          args: 'toml-cli'
+          args: "toml-cli"
       - shell: bash
         env:
-          VERSION: '${{ steps.get_version.outputs.VERSION }}'
+          VERSION: "${{ steps.get_version.outputs.VERSION }}"
         run: |
           TEMP_FILE="$(mktemp)"
           echo "$VERSION"
@@ -195,11 +195,11 @@ jobs:
           cat Cargo.toml
       - uses: actions-rs/cargo@v1
         env:
-          VERSION: '${{ steps.get_version.outputs.VERSION }}'
-          REPOSITORY_NAME: '${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}'
+          VERSION: "${{ steps.get_version.outputs.VERSION }}"
+          REPOSITORY_NAME: "${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}"
         with:
           command: build
-          args: '--release'
+          args: "--release"
       - uses: actions/upload-artifact@master
         with:
           name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-${{ matrix.target }}
@@ -231,7 +231,7 @@ jobs:
           repo: ${{ github.repository_owner }}/${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
-          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu  
+          rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
           wait_seconds: 30
       - name: Download artifact from build
         uses: bettermarks/action-artifact-download@0.5.1
@@ -248,7 +248,7 @@ jobs:
       #     token: ${{ secrets.GITHUB_TOKEN }}
       #     artifact_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc
       #     rename: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-pc-windows-msvc.exe
-      #     wait_seconds: 30          
+      #     wait_seconds: 30
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -257,14 +257,14 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: install
-          args: 'toml-cli'
+          args: "toml-cli"
       - run: |
           TEMP_FILE="$(mktemp)"
           toml set Cargo.toml package.version "${VERSION:1}" > "$TEMP_FILE"
           mv "$TEMP_FILE" Cargo.toml
         shell: bash
         env:
-          VERSION: '${{ steps.get_version.outputs.VERSION }}'
+          VERSION: "${{ steps.get_version.outputs.VERSION }}"
       - uses: stefanzweifel/git-auto-commit-action@v4.1.3
         with:
           commit_message: Bump cargo version
@@ -273,27 +273,27 @@ jobs:
       - id: create_release
         uses: actions/create-release@v1.0.0
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
-          tag_name: '${{ steps.get_version.outputs.VERSION }}'
-          release_name: 'Release ${{ steps.get_version.outputs.VERSION }}'
+          tag_name: "${{ steps.get_version.outputs.VERSION }}"
+          release_name: "Release ${{ steps.get_version.outputs.VERSION }}"
           draft: false
           prerelease: false
       - uses: actions/upload-release-asset@v1.0.1
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
-          upload_url: '${{ steps.create_release.outputs.upload_url }}'
-          asset_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
-          asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-unknown-linux-gnu
+          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          asset_name: awscloud_sso-x86_64-unknown-linux-gnu
+          asset_path: ./target/release/awscloud_sso
           asset_content_type: application/octet-stream
       - uses: actions/upload-release-asset@v1.0.1
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
-          upload_url: '${{ steps.create_release.outputs.upload_url }}'
-          asset_name: ${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
-          asset_path: ./${{ steps.get_repository_name.outputs.REPOSITORY_NAME }}-x86_64-apple-darwin
+          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          asset_name: awscloud_sso-x86_64-apple-darwin
+          asset_path: ./target/release/awscloud_sso
           asset_content_type: application/octet-stream
       # - uses: actions/upload-release-asset@v1.0.1
       #   env:
