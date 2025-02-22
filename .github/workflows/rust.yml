@@ -175,14 +175,16 @@ jobs:
           path: .
       - name: Set Executable Permissions
         run: chmod +x awscloud_sso-*
+      - name: Fetch Version for Tag
+        run: echo "VERSION=$(cat version)" >> $GITHUB_ENV
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             ./awscloud_sso-x86_64-unknown-linux-gnu
             ./awscloud_sso-x86_64-apple-darwin
-          tag_name: "${{ steps.get_version.outputs.VERSION }}"
-          name: "Release ${{ steps.get_version.outputs.VERSION }}"
+          tag_name: "${{ env.VERSION }}"
+          name: "Release ${{ env.VERSION }}"
           draft: false
           prerelease: false
         env:
