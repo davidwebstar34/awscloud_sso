@@ -1,4 +1,4 @@
-# AWS(Unofficial) Cloud SSO 
+# AWS(Unofficial) Cloud SSO
 
 ## Installation
 
@@ -69,7 +69,7 @@ To use it in a Rust project, add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-awscloud_sso_credential_helper = "1.2.0"
+awscloud_sso_credential_helper = "1.3.0"
 ```
 
 Example usage in Rust:
