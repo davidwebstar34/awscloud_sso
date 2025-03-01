@@ -1,6 +1,6 @@
 [package]
 name = "awscloud_sso"
-version = "1.0.13"
+version = "1.0.14"
 edition = "2021"
 authors = ["David Webster <dwebster182@gmail.com>"]
 description = "A cli binary for getting credentials from AWS SSO."
@@ -11,6 +11,6 @@ documentation = "https://docs.rs/awscloud_sso"
 keywords = ["aws", "sso", "rust"]
 
 [dependencies]
-awscloud_sso_cred_helper = "1.7.0"
+awscloud_sso_cred_helper = "1.8.0"
 tokio = { version = "1", features = ["full"] }
 clap = { version = "4.4", features = ["derive"] }
