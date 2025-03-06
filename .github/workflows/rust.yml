@@ -45,12 +45,20 @@ jobs:
         if: runner.os == 'Windows'
         run: Rename-Item target\\${{ matrix.target }}\\release\\${{ env.REPO_NAME }}.exe ${{ env.REPO_NAME }}-${{ matrix.target }}.exe
 
-      - name: Upload Artifact
+      - name: Upload Artifact (Unix)
+        if: runner.os != 'Windows'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.REPO_NAME }}-${{ matrix.target }}
-          path: |
-            ./${{ env.REPO_NAME }}-${{ matrix.target }}*
+          path: ./${{ env.REPO_NAME }}-${{ matrix.target }}
+          retention-days: 5
+
+      - name: Upload Artifact (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_NAME }}-${{ matrix.target }}.exe
+          path: ./${{ env.REPO_NAME }}-${{ matrix.target }}.exe
           retention-days: 5
 
   release:
@@ -75,7 +83,7 @@ jobs:
       - name: Download Windows Binary
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.REPO_NAME }}-x86_64-pc-windows-msvc
+          name: ${{ env.REPO_NAME }}-x86_64-pc-windows-msvc.exe
           path: .
 
       - name: Set Executable Permissions
