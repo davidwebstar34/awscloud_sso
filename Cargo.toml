@@ -1,6 +1,6 @@
 [package]
 name = "awscloud_sso"
-version = "1.0.18"
+version = "1.0.19"
 edition = "2021"
 authors = ["David Webster <dwebster182@gmail.com>"]
 description = "A cli binary for getting credentials from AWS SSO."
