@@ -69,7 +69,7 @@ To use it in a Rust project, add the dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-awscloud_sso_credential_helper = "1.10.0"
+awscloud_sso_credential_helper = "1.11.0"
 ```
 
 Example usage in Rust:
