@@ -43,7 +43,9 @@ jobs:
 
       - name: Rename Binary (Windows)
         if: runner.os == 'Windows'
-        run: Rename-Item target\\${{ matrix.target }}\\release\\${{ env.REPO_NAME }}.exe ${{ env.REPO_NAME }}-${{ matrix.target }}.exe
+        shell: powershell
+        run: |
+          Move-Item "target/${{ matrix.target }}/release/${{ env.REPO_NAME }}.exe" "./${{ env.REPO_NAME }}-${{ matrix.target }}.exe"
 
       - name: Upload Artifact (Unix)
         if: runner.os != 'Windows'
