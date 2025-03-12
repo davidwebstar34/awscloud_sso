@@ -22,7 +22,6 @@ struct Args {
     command: Option<SubCommands>,
 }
 
-
 /// SubCommands defines the two available commands for the CLI:
 ///
 /// - `Refresh`: A command to refresh the AWS SSO credentials. This command takes no additional arguments.
@@ -33,7 +32,11 @@ struct Args {
 enum SubCommands {
     Refresh,
     Start {
-        #[arg(short, long, help="the start url of aws sso: usually something <domain>.awsapps.com/start")]
+        #[arg(
+            short,
+            long,
+            help = "the start url of aws sso: usually something <domain>.awsapps.com/start"
+        )]
         start_url: String,
 
         #[arg(short, long)]
@@ -46,7 +49,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let args = Args::parse();
 
     let mut workflow = AwsSsoWorkflow {
-        start_url: args.start_url.unwrap_or_else(|| "".to_string()),
+        start_url: format!(
+            "{}{}",
+            args.start_url.unwrap_or_else(|| "".to_string()),
+            ".awsapps.com/start"
+        ),
         region: args.region.unwrap_or_else(|| "".to_string()),
     };
 
