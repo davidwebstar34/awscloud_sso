@@ -7,7 +7,6 @@ description = "A cli binary for getting credentials from AWS SSO."
 license = "MIT"
 repository = "https://github.com/davidwebstar34/awscloud_sso"
 homepage = "https://github.com/davidwebstar34/awscloud_sso"
-documentation = "https://docs.rs/awscloud_sso"
 keywords = ["aws", "sso", "rust"]
 
 [dependencies]
